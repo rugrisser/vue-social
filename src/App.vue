@@ -28,7 +28,7 @@
                         <v-list-item-title class="text-left">Мой профиль</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item>
+                <v-list-item link to="/users" exact>
                     <v-list-item-icon>
                         <v-icon>mdi-account-multiple-plus-outline</v-icon>
                     </v-list-item-icon>

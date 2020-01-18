@@ -20,7 +20,7 @@
         </v-container>
         <v-divider class="py-7"></v-divider>
         <span class="display-1 font-weight-bold">Публикации</span>
-        <v-container>
+        <v-container class="mt-8">
             <v-row>
                 <v-col
                         cols="10"
