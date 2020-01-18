@@ -12,7 +12,7 @@
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider class="my-3"></v-divider>
-                <v-list-item link to="/">
+                <v-list-item link to="/" exact>
                     <v-list-item-icon>
                         <v-icon>mdi-home-outline</v-icon>
                     </v-list-item-icon>
@@ -20,7 +20,7 @@
                         <v-list-item-title class="text-left">Главная</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item>
+                <v-list-item link to="/profile/1" exact>
                     <v-list-item-icon>
                         <v-icon>mdi-account-outline</v-icon>
                     </v-list-item-icon>
