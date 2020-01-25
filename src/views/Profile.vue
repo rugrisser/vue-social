@@ -7,7 +7,7 @@
                     <v-avatar
                         width="200px"
                         height="200px">
-                        <img :src="'https://randomuser.me/api/portraits/men/' + $route.params.id + '.jpg'">
+                        <img :src="'https://randomuser.me/api/portraits/men/' + parseInt($route.params.id) + '.jpg'">
                     </v-avatar>
                 </v-col>
                 <v-col cols="9" class="body-1">
@@ -27,7 +27,7 @@
                         v-for="(post, index) in posts"
                         :key="index">
                     <Post
-                        :avatar="'https://randomuser.me/api/portraits/men/' + $route.params.id + '.jpg'"
+                        :avatar="'https://randomuser.me/api/portraits/men/' + parseInt($route.params.id) + '.jpg'"
                         :author="profile.name"
                         :title="post.title"
                         :text="post.body" />
@@ -80,17 +80,13 @@
 
                     this.axios.get("http://jsonplaceholder.typicode.com/users/" + id)
                         .then((response) => {
-
-                            console.log(response);
                             this.profile = response.data;
-
                         });
                     this.axios.get("http://jsonplaceholder.typicode.com/posts?userId=" + id)
                         .then((response) => {
 
                             this.posts = response.data;
                             this.posts.reverse();
-                            console.log(this.posts);
 
                         });
 

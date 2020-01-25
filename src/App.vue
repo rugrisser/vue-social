@@ -4,11 +4,11 @@
             <v-list nav shaped dense>
                 <v-list-item two-line>
                     <v-list-item-avatar>
-                        <img :src="'https://randomuser.me/api/portraits/men/1.jpg'">
+                        <img :src="'https://randomuser.me/api/portraits/men/' + (user_id === -1 ? 1 : user_id) + '.jpg'">
                     </v-list-item-avatar>
                     <v-list-item-content class="text-left">
                         <v-list-item-title class="font-weight-black">SocialLink</v-list-item-title>
-                        <v-list-item-subtitle>Иван Иванов</v-list-item-subtitle>
+                        <v-list-item-subtitle>{{ name }}</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider class="my-3"></v-divider>
@@ -20,7 +20,7 @@
                         <v-list-item-title class="text-left">Главная</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link to="/profile/1" exact>
+                <v-list-item link v-bind:to="user_id === -1 ? '/login' : '/profile/' + user_id" exact>
                     <v-list-item-icon>
                         <v-icon>mdi-account-outline</v-icon>
                     </v-list-item-icon>
@@ -40,11 +40,34 @@
         </v-navigation-drawer>
         <v-content class="px-12 py-3">
             <v-container fluid>
-                <router-view/>
+                <router-view v-on:login="updateUser"/>
             </v-container>
         </v-content>
     </v-app>
 </template>
+
+<script>
+    export default {
+        name: "App",
+        data() {
+            return {
+                user_id: -1,
+                name: "Иван Иванов"
+            }
+        },
+        methods: {
+            updateUser(id) {
+
+                this.user_id = id;
+                this.axios.get("http://jsonplaceholder.typicode.com/users/" + id)
+                    .then((response) => {
+                        this.name = response.data.name;
+                    });
+
+            }
+        }
+    }
+</script>
 
 <style lang="scss">
     #app {
