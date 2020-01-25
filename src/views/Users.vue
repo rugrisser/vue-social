@@ -31,11 +31,7 @@
 
             this.axios.get("http://jsonplaceholder.typicode.com/users")
                 .then((response) => {
-
                     this.users = response.data;
-                    //this.users.splice(0, 1);
-                    console.log(this.users);
-
                 });
 
         }
