@@ -80,17 +80,13 @@
 
                     this.axios.get("http://jsonplaceholder.typicode.com/users/" + id)
                         .then((response) => {
-
-                            console.log(response);
                             this.profile = response.data;
-
                         });
                     this.axios.get("http://jsonplaceholder.typicode.com/posts?userId=" + id)
                         .then((response) => {
 
                             this.posts = response.data;
                             this.posts.reverse();
-                            console.log(this.posts);
 
                         });
 

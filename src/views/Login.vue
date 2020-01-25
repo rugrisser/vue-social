@@ -49,6 +49,7 @@
                                 if ((this.login === users[index].login) && (this.password === users[index].password)) {
 
                                     const user_id = parseInt(index) + 1;
+                                    this.$emit('login', user_id);
                                     this.$router.push('/profile/' + user_id);
                                     found = true;
                                     break;

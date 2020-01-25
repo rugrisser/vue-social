@@ -33,7 +33,7 @@
                 .then((response) => {
 
                     this.users = response.data;
-                    this.users.splice(0, 1);
+                    //this.users.splice(0, 1);
                     console.log(this.users);
 
                 });
