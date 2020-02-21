@@ -7,14 +7,14 @@
                     <v-avatar
                         width="200px"
                         height="200px">
-                        <img :src="'https://randomuser.me/api/portraits/men/' + parseInt($route.params.id) + '.jpg'">
+                        <img :src="profile.photo">
                     </v-avatar>
                 </v-col>
                 <v-col cols="9" class="body-1">
                     <br><span>Веб-сайт: <a :href="'https://' + profile.website" target="_blank">{{ profile.website }}</a></span><br><br>
                     <span>E-mail: <a :href="'mailto:' + profile.email">{{ profile.email }}</a> </span><br><br>
-                    <span>Город: {{ profile.address.city }}</span><br><br>
-                    <span>Место работы: {{ profile.company.name }}</span>
+                    <span>Город: {{ profile.city }}</span><br><br>
+                    <span>Место работы: {{ profile.company }}</span>
                 </v-col>
             </v-row>
         </v-container>
@@ -48,20 +48,15 @@
         data() {
 
             return {
-
                 profile: {
                     name: "Иван Иванов",
                     website: "example.com",
                     email: "example@example.com",
-                    address: {
-                        city: "London"
-                    },
-                    company: {
-                        name: "Apple"
-                    }
+                    city: "London",
+                    company: "Apple",
+                    photo: "https://vk.com/images/camera_200.png"
                 },
                 posts: []
-
             }
 
         },
@@ -71,24 +66,20 @@
 
                     let id = parseInt(this.$route.params.id);
 
-                    if (isNaN(id)) {
+                    if (isNaN(id))
+                        this.$router.push('/users');
 
-                        window.location = '/profile/1';
-                        id = 1;
+                    this.axios.get('http://188.225.47.187/api/jsonstorage/4e5b70b015290d296c13945601023e8d')
+                        .then(
+                            (response) => {
 
-                    }
+                                if (response.data.length < id)
+                                    this.$router.push('/users');
+                                else
+                                    this.profile = response.data[id - 1];
 
-                    this.axios.get("http://jsonplaceholder.typicode.com/users/" + id)
-                        .then((response) => {
-                            this.profile = response.data;
-                        });
-                    this.axios.get("http://jsonplaceholder.typicode.com/posts?userId=" + id)
-                        .then((response) => {
-
-                            this.posts = response.data;
-                            this.posts.reverse();
-
-                        });
+                            }
+                        )
 
                 },
                 immediate: true
