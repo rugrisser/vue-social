@@ -22,10 +22,18 @@
                 </v-list-item>
                 <v-list-item link v-bind:to="user_id === -1 ? '/login' : '/profile/' + user_id" exact>
                     <v-list-item-icon>
-                        <v-icon>mdi-account-outline</v-icon>
+                        <v-icon>{{ user_id === -1 ? 'mdi-login-variant' : 'mdi-account-outline' }}</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title class="text-left">Мой профиль</v-list-item-title>
+                        <v-list-item-title class="text-left">{{ user_id === -1 ? 'Вход' : 'Мой профиль' }}</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item v-if="user_id === -1" link to="/registration" exact>
+                    <v-list-item-icon>
+                        <v-icon>mdi-login-variant</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title class="text-left">Регистрация</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item link to="/users" exact>
