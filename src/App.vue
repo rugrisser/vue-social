@@ -4,11 +4,11 @@
             <v-list nav shaped dense>
                 <v-list-item two-line>
                     <v-list-item-avatar>
-                        <img :src="'https://randomuser.me/api/portraits/men/' + (user_id === -1 ? 1 : user_id) + '.jpg'">
+                        <img :src="profile.photo">
                     </v-list-item-avatar>
                     <v-list-item-content class="text-left">
-                        <v-list-item-title class="font-weight-black">SocialLink</v-list-item-title>
-                        <v-list-item-subtitle>{{ name }}</v-list-item-subtitle>
+                        <v-list-item-title class="font-weight-black">{{ user_id === -1 ? 'Social Link' : profile.login }}</v-list-item-title>
+                        <v-list-item-subtitle>{{ profile.name }}</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider class="my-3"></v-divider>
@@ -60,17 +60,27 @@
         data() {
             return {
                 user_id: -1,
-                name: "Иван Иванов"
+                profile: {
+                    login: 'username',
+                    name: "",
+                    website: "example.com",
+                    email: "example@example.com",
+                    city: "London",
+                    company: "Apple",
+                    photo: "https://vk.com/images/camera_200.png"
+                }
             }
         },
         methods: {
             updateUser(id) {
 
                 this.user_id = id;
-                this.axios.get("http://jsonplaceholder.typicode.com/users/" + id)
-                    .then((response) => {
-                        this.name = response.data.name;
-                    });
+                this.axios.get('http://188.225.47.187/api/jsonstorage/4e5b70b015290d296c13945601023e8d')
+                    .then(
+                        (response) => {
+                            this.profile = response.data[id - 1];
+                        }
+                    );
 
             }
         }
