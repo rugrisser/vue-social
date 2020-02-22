@@ -7,7 +7,7 @@
                         class="ml-5"
                         width="90%"
                         height="auto">
-                        <img :src="'https://randomuser.me/api/portraits/men/' + id + '.jpg'">
+                        <img :src="photo">
                     </v-avatar>
                 </v-col>
                 <v-col cols="9">
@@ -32,7 +32,7 @@
 <script>
     export default {
         name: "User",
-        props: ["id", "name", "city"]
+        props: ["id", "name", "city", "photo"]
     }
 </script>
 

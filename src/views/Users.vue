@@ -8,7 +8,8 @@
                 <User
                     :id="user.id"
                     :name="user.name"
-                    :city="user.address.city" />
+                    :photo="user.photo"
+                    :city="user.city !== '' ? user.city : 'Город не указан'" />
             </v-col>
         </v-row>
     </v-container>
@@ -29,10 +30,17 @@
         },
         mounted() {
 
-            this.axios.get("http://jsonplaceholder.typicode.com/users")
-                .then((response) => {
-                    this.users = response.data;
-                });
+            this.axios.get('http://188.225.47.187/api/jsonstorage/4e5b70b015290d296c13945601023e8d')
+                .then(
+                    (response) => {
+
+                        this.users = response.data;
+
+                        for (let index in response.data)
+                            this.users[index].id = parseInt(index) + 1;
+
+                    }
+                )
 
         }
     }
