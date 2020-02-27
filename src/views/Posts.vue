@@ -45,7 +45,7 @@
         },
         mounted() {
 
-
+            this.id = this.$store.state.id;
 
             this.axios.get('http://188.225.47.187/api/jsonstorage/3aa45f3959e052317fba82f4096df045')
                 .then(
@@ -60,15 +60,6 @@
                     }
                 );
 
-        },
-        watch: {
-            $route: {
-                handler() {
-                    this.id = parseInt(this.$route.params.id);
-                    console.log(this.$route.params.id);
-                },
-                immediate: true
-            }
         }
     }
 </script>

@@ -83,6 +83,7 @@
             updateUser(id) {
 
                 this.user_id = id;
+                this.$store.state.id = id;
                 this.axios.get('http://188.225.47.187/api/jsonstorage/4e5b70b015290d296c13945601023e8d')
                     .then(
                         (response) => {
