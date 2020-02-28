@@ -28,6 +28,14 @@
                         <v-list-item-title class="text-left">Новости</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item v-if="user_id !== -1" link to="/bookmarks" exact>
+                    <v-list-item-icon>
+                        <v-icon>mdi-bookmark-multiple-outline</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title class="text-left">Закладки</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 <v-list-item link v-bind:to="user_id === -1 ? '/login' : '/profile/' + user_id" exact>
                     <v-list-item-icon>
                         <v-icon>{{ user_id === -1 ? 'mdi-login-variant' : 'mdi-account-outline' }}</v-icon>
