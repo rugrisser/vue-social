@@ -4,7 +4,7 @@
             <p class="light-blue--text text--darken-2 display-2 font-weight-bold">Последние публикации</p><br>
             <v-container class="mt-8">
                 <v-row>
-                        <v-col cols="10" sm="10" md="5">
+                    <v-col cols="10" sm="10" md="10" lg="5" xl="5">
                         <v-card v-if="id > 0" outlined class="mb-6">
                             <v-container class="px-12 py-12">
                                 <div>
@@ -34,7 +34,7 @@
                                     :title="post.title"/>
                         </div>
                     </v-col>
-                    <v-col cols="10" sm="10" md="5">
+                    <v-col cols="10" sm="10" md="10" lg="5" xl="5">
                         <Post
                                 :key="index"
                                 v-for="(post, index) in posts.second"

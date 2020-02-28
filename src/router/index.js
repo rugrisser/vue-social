@@ -34,6 +34,11 @@ const routes = [
         path: '/feed',
         name: 'feed',
         component: () => import('../views/Posts')
+    },
+    {
+        path: '/bookmarks',
+        name: 'bookmarks',
+        component: () => import('../views/Bookmarks')
     }
 ]
 
