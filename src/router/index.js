@@ -29,6 +29,11 @@ const routes = [
         path: '/registration',
         name: 'registration',
         component: () => import('../views/Registration')
+    },
+    {
+        path: '/feed',
+        name: 'feed',
+        component: () => import('../views/Posts')
     }
 ]
 

@@ -20,6 +20,14 @@
                         <v-list-item-title class="text-left">Главная</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item link to="/feed" exact>
+                    <v-list-item-icon>
+                        <v-icon>mdi-newspaper-variant-multiple-outline</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title class="text-left">Новости</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
                 <v-list-item link v-bind:to="user_id === -1 ? '/login' : '/profile/' + user_id" exact>
                     <v-list-item-icon>
                         <v-icon>{{ user_id === -1 ? 'mdi-login-variant' : 'mdi-account-outline' }}</v-icon>
@@ -75,6 +83,7 @@
             updateUser(id) {
 
                 this.user_id = id;
+                this.$store.state.id = id;
                 this.axios.get('http://188.225.47.187/api/jsonstorage/4e5b70b015290d296c13945601023e8d')
                     .then(
                         (response) => {
