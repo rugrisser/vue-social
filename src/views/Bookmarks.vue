@@ -7,7 +7,9 @@
                     <v-col cols="10" sm="10" md="10" lg="5" xl="5">
                         <Post
                                 v-for="(post, index) in posts.first"
+                                v-on:update="update"
                                 :key="index"
+                                :post_id="post.id"
                                 :title="post.title"
                                 :text="post.text"
                                 :author="users[post.author - 1].name"
@@ -17,7 +19,9 @@
                     <v-col cols="10" sm="10" md="10" lg="5" xl="5">
                         <Post
                                 v-for="(post, index) in posts.second"
+                                v-on:update="update"
                                 :key="index"
+                                :post_id="post.id"
                                 :title="post.title"
                                 :text="post.text"
                                 :author="users[post.author - 1].name"
@@ -53,13 +57,12 @@
                 users: []
             }
         },
-        mounted() {
+        methods: {
+            update() {
 
-            this.id = this.$store.state.id;
-
-            if (this.id === -1)
-                this.$router.push('/login');
-            else {
+                this.posts.first = [];
+                this.posts.second = [];
+                this.posts.main = [];
 
                 this.axios.get('http://188.225.47.187/api/jsonstorage/4e5b70b015290d296c13945601023e8d')
                     .then(
@@ -74,6 +77,8 @@
                                         this.posts.data = response.data;
 
                                         for (const index of this.profile.bookmarks) {
+                                            console.log(this.posts.data[index]);
+                                            this.posts.data[index].id = index;
                                             this.posts.main.push(this.posts.data[index]);
                                         }
 
@@ -97,6 +102,15 @@
                     );
 
             }
+        },
+        mounted() {
+
+            this.id = this.$store.state.id;
+
+            if (this.id === -1)
+                this.$router.push('/login');
+            else
+                this.update();
 
         }
     }

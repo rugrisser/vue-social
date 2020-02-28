@@ -28,6 +28,8 @@
                                 v-for="(post, index) in posts.first">
                             <Post
                                     class="mb-6"
+                                    v-on:update="getPosts"
+                                    :post_id="post.id"
                                     :avatar="post.user.photo"
                                     :author="post.user.name"
                                     :text="post.text"
@@ -38,7 +40,9 @@
                         <Post
                                 :key="index"
                                 v-for="(post, index) in posts.second"
+                                v-on:update="getPosts"
                                 class="mb-6"
+                                :post_id="post.id"
                                 :avatar="post.user.photo"
                                 :author="post.user.name"
                                 :text="post.text"
@@ -61,6 +65,7 @@
         data() {
             return {
                 posts: {
+                    count: 0,
                     data: [],
                     main: [],
                     first: [],
@@ -77,48 +82,63 @@
         methods: {
             getPosts() {
 
+                this.posts = {
+                    count: 0,
+                    data: [],
+                    main: [],
+                    first: [],
+                    second: []
+                };
+                this.newPost = {
+                    title: "",
+                    text: ""
+                };
+
                 this.axios.get('http://188.225.47.187/api/jsonstorage/3aa45f3959e052317fba82f4096df045')
                     .then(
                         (response) => {
 
                             this.posts.main = response.data;
                             this.posts.data = response.data;
+                            this.posts.count = this.posts.main.length;
                             this.posts.main.reverse();
 
-                        }
-                    );
-                this.axios.get('http://188.225.47.187/api/jsonstorage/4e5b70b015290d296c13945601023e8d')
-                    .then(
-                        (response) => {
+                            this.axios.get('http://188.225.47.187/api/jsonstorage/4e5b70b015290d296c13945601023e8d')
+                                .then(
+                                    (response) => {
 
-                            this.users = response.data;
+                                        this.users = response.data;
 
-                            for (const index in this.posts.main) {
+                                        for (const index in this.posts.main) {
 
-                                let author_id = this.posts.main[index].author;
-                                let author = this.users[author_id - 1];
-                                this.posts.main[index].user = author;
+                                            let author_id = this.posts.main[index].author;
+                                            let author = this.users[author_id - 1];
+                                            this.posts.main[index].user = author;
+                                            this.posts.main[index].id = this.posts.count - 1 - index;
 
-                            }
+                                        }
 
-                            for (const index in this.posts.main) {
+                                        for (const index in this.posts.main) {
 
-                                switch (index % 2) {
-                                    case 0:
-                                        if (this.id === -1)
-                                            this.posts.first.push(this.posts.main[index]);
-                                        else
-                                            this.posts.second.push(this.posts.main[index]);
-                                        break;
-                                    case 1:
-                                        if (this.id === -1)
-                                            this.posts.second.push(this.posts.main[index]);
-                                        else
-                                            this.posts.first.push(this.posts.main[index]);
-                                        break;
-                                }
+                                            switch (index % 2) {
+                                                case 0:
+                                                    if (this.id === -1)
+                                                        this.posts.first.push(this.posts.main[index]);
+                                                    else
+                                                        this.posts.second.push(this.posts.main[index]);
+                                                    break;
+                                                case 1:
+                                                    if (this.id === -1)
+                                                        this.posts.second.push(this.posts.main[index]);
+                                                    else
+                                                        this.posts.first.push(this.posts.main[index]);
+                                                    break;
+                                            }
 
-                            }
+                                        }
+
+                                    }
+                                );
 
                         }
                     );
