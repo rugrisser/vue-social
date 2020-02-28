@@ -60,6 +60,14 @@
                         <v-list-item-title class="text-left">Найти друзей</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item v-if="user_id !== -1" @click="updateUser(-1)">
+                    <v-list-item-icon>
+                        <v-icon>mdi-logout-variant</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title class="text-left">Выйти</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
         <v-content class="px-12 py-3">
@@ -92,12 +100,19 @@
 
                 this.user_id = id;
                 this.$store.state.id = id;
-                this.axios.get('http://188.225.47.187/api/jsonstorage/4e5b70b015290d296c13945601023e8d')
-                    .then(
-                        (response) => {
-                            this.profile = response.data[id - 1];
-                        }
-                    );
+
+                if (id !== -1) {
+
+                    this.axios.get('http://188.225.47.187/api/jsonstorage/4e5b70b015290d296c13945601023e8d')
+                        .then(
+                            (response) => {
+                                this.profile = response.data[id - 1];
+                            }
+                        );
+
+                } else {
+                    this.$router.push('/');
+                }
 
             }
         }
